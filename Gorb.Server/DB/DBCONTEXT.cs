@@ -1,12 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Gorb.DAL.Entities;
+﻿using Gorb.DAL.Entities;
+using Microsoft.EntityFrameworkCore;
 
-namespace Gorb.DAL.DB
+namespace Gorb.Server.DB
 {
     public class ApplicationDbContext : DbContext
     {
@@ -18,5 +13,4 @@ namespace Gorb.DAL.DB
             optionsBuilder.UseSqlite("Data Source=YAICO.db");
         }
     }
-
 }

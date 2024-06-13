@@ -1,4 +1,4 @@
-﻿using Gorb.DAL.DB;
+﻿using Gorb.Server.DB;
 using Gorb.Server.Services;
 using Gorb.DAL.DataContracts;
 using Microsoft.AspNetCore.Mvc;

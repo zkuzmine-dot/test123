@@ -1,4 +1,4 @@
-﻿using Gorb.DAL.DB;
+﻿using Gorb.Server.DB;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gorb.Server.Services

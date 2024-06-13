@@ -1,4 +1,4 @@
-using Gorb.DAL.DB;
+using Gorb.Server.DB;
 using Gorb.DAL.Entities;
 using Gorb.Server.Models;
 using Microsoft.AspNetCore.Mvc;

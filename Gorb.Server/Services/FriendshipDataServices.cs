@@ -1,5 +1,5 @@
 ﻿using Gorb.DAL.DataContracts.FriendshipData;
-using Gorb.DAL.DB;
+using Gorb.Server.DB;
 using Gorb.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 

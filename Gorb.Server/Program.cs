@@ -1,4 +1,4 @@
-using Gorb.DAL.DB;
+using Gorb.Server.DB;
 using Gorb.Server.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;

@@ -1,5 +1,5 @@
 ﻿using Gorb.DAL.DataContracts.UserData;
-using Gorb.DAL.DB;
+using Gorb.Server.DB;
 using Gorb.Server.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
