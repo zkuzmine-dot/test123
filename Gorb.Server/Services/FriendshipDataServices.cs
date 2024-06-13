@@ -1,6 +1,7 @@
 ﻿using Gorb.DAL.DataContracts.FriendshipData;
 using Gorb.DAL.DB;
 using Gorb.DAL.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gorb.Server.Services
 {
@@ -11,9 +12,9 @@ namespace Gorb.Server.Services
         {
             _dbContext = context;
         }
-        public List<Friend> GetUserFriends(int Id)
+        public async Task<List<Friend>> GetUserFriendsAsync(int Id)
         {
-            List<FriendShip> Friendships  = _dbContext.FriendShips.Where((f => f.UserId == Id || f.FriendId == Id)).ToList();
+            List<FriendShip> Friendships = await _dbContext.FriendShips.Where((f => f.UserId == Id || f.FriendId == Id)).ToListAsync();
             List<int> FriendsId = new List<int>();
             foreach (var friendship in Friendships)
             {
@@ -26,7 +27,7 @@ namespace Gorb.Server.Services
             List<Friend> friends = new List<Friend>();
             foreach (var f in FriendsId)
             {
-                User user = _dbContext.Users.Single(u => u.Id == f);
+                User user = await _dbContext.Users.SingleAsync(u => u.Id == f);
                 Friend friend = new Friend()
                 {
                     Nickname = user.Nickname,
@@ -36,6 +37,6 @@ namespace Gorb.Server.Services
             }
             return friends;
         }
-        
+
     }
 }

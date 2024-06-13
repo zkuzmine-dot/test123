@@ -3,6 +3,7 @@ using Gorb.DAL.DB;
 using Gorb.Server.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace Gorb.Server.Controllers
@@ -26,12 +27,12 @@ namespace Gorb.Server.Controllers
         }
         [Authorize]
         [HttpGet("experience")]
-        public IActionResult GetExperience()
+        public async Task<IActionResult> GetExperience()
         {
             if (HttpContext.User.Identity is ClaimsIdentity identity)
             {
                 var username = identity.FindFirst(ClaimTypes.Name)?.Value;
-                var user = _context.Users.SingleOrDefault(u => u.Nickname == username);
+                var user = await _context.Users.SingleOrDefaultAsync(u => u.Nickname == username);
 
                 if (user is null)
                 {
@@ -45,12 +46,10 @@ namespace Gorb.Server.Controllers
             }
 
             return Unauthorized();
-
-
         }
         [Authorize]
         [HttpPost("experience")]
-        public IActionResult SetExperience(UserExperienceRequest request)
+        public async Task<IActionResult> SetExperience(UserExperienceRequest request)
         {
             if (HttpContext.User.Identity is ClaimsIdentity identity)
             {
@@ -61,7 +60,7 @@ namespace Gorb.Server.Controllers
                 {
                     return Unauthorized();
                 }
-                _userdataService.SetExperience(user.Id,request.AmountExperience);
+                await _userdataService.SetExperienceAsync(user.Id,request.AmountExperience);
                 return Ok(new UserExperienceWithLvlResponse()
                 {
                     ExperienceBar = user.ExperienceBar,

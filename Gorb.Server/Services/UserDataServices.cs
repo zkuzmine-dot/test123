@@ -10,20 +10,19 @@ namespace Gorb.Server.Services
         { 
             _dbContext = context;
         }
-        public void SetExperience(int Id, int AmountExperience)
+        public async Task SetExperienceAsync(int Id, int AmountExperience)
         {
-            var user = _dbContext.Users.SingleOrDefault(u => u.Id == Id);
+            var user = await _dbContext.Users.SingleOrDefaultAsync(u => u.Id == Id);
             if (user != null)
             {
-
-                double newAmount = user.ExperienceBar+Convert.ToDouble(AmountExperience);
+                double newAmount = user.ExperienceBar + Convert.ToDouble(AmountExperience);
                 double rawnewlvl = newAmount / 100;
                 string str = Convert.ToString(rawnewlvl);
                 string[] parts = str.Split(',');
                 int newlvl = Convert.ToInt32(parts[0]);
                 user.ExperienceBar = newAmount;
                 user.CurrentBackLvl = newlvl;
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
             }
         }
     }

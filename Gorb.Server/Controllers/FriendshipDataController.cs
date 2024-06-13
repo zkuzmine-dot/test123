@@ -28,7 +28,7 @@ namespace Gorb.Server.Controllers
         }
         [Authorize]
         [HttpGet("friends")]
-        public IActionResult GetMyFriends()
+        public async Task<ActionResult<IEnumerable<Friend>>> GetMyFriends()
         {
             if (HttpContext.User.Identity is ClaimsIdentity identity)
             {
@@ -39,7 +39,7 @@ namespace Gorb.Server.Controllers
                 {
                     return Unauthorized();
                 }
-                List<Friend> friends = _friendshipdataService.GetUserFriends(user.Id);
+                List<Friend> friends =await _friendshipdataService.GetUserFriendsAsync(user.Id);
                 return Ok(new FriendsResponse()
                 {
                     Friends = friends
@@ -50,7 +50,7 @@ namespace Gorb.Server.Controllers
 
         [Authorize]
         [HttpPost("friends")]
-        public IActionResult AddFriend(FriendshipRequest request)
+        public async Task<ActionResult<IEnumerable<Friend>>> AddFriend(FriendshipRequest request)
         {
             if (HttpContext.User.Identity is ClaimsIdentity identity)
             {
@@ -82,7 +82,7 @@ namespace Gorb.Server.Controllers
                     return BadRequest("Friend is already exist");
                 }
 
-                List<Friend> friends = _friendshipdataService.GetUserFriends(user.Id);
+                List<Friend> friends = await _friendshipdataService.GetUserFriendsAsync(user.Id);
                 return Ok(new FriendsResponse()
                 {
                     Friends = friends
